@@ -1,5 +1,7 @@
 package com.zakaria.github.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -7,8 +9,9 @@ import java.io.Serializable;
  */
 
 public class Owner implements Serializable{
-
+    @SerializedName("login")
     private String name;
+    @SerializedName("avatar_url")
     private String image;
 
     public Owner() {

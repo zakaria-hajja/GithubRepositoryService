@@ -24,6 +24,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.functions.Action1;
+
 /**
  * Created by Zakaria on 14/01/2018.
  */
@@ -39,9 +41,16 @@ public class RepositoryFragment extends Fragment{
         ((RepositoryActivity)getActivity()).getActivityComponent().plusFragmentComponent().inject(this);
 
         Log.e("VIEWMODEL",viewModel.toString());
-        List<Repository> repositories = new ArrayList<>();
-        binding.recycler.setAdapter(new ListRepositoryAdapter(this.getActivity(),repositories));
+        viewModel.getRepositories(1)
+                .subscribe(new Action1<List<Repository>>() {
+                    @Override
+                    public void call(List<Repository> repositories) {
+                        binding.recycler.setAdapter(new ListRepositoryAdapter(getActivity(),repositories));
+                    }
+                });
+
         binding.recycler.setHasFixedSize(true);
+
         binding.recycler.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 

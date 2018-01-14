@@ -5,11 +5,14 @@ import com.zakaria.github.GithubRepositoryServiceApplication;
 import com.zakaria.github.dagger.module.ActivityModule;
 import com.zakaria.github.dagger.module.AppModule;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
 /**
  * Created by Zakaria on 14/01/2018.
  */
+@Singleton
 @Component(modules = AppModule.class)
 public interface Appcomponent {
     ActivityComponent plusActivityComponent(ActivityModule activityModule);
