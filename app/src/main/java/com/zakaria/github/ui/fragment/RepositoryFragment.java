@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,38 +37,22 @@ import rx.functions.Action1;
 public class RepositoryFragment extends Fragment{
     @Inject
     RepositoryViewModel viewModel;
+
     LinearLayoutManager linearLayoutManager;
-    EndlessRecyclerViewScrollListener scrollListener;
     ListRepositoryAdapter adapter;
     FragmentRepositoryBinding binding;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         binding = DataBindingUtil.bind(getView());
+
         ((RepositoryActivity) getActivity()).getActivityComponent().plusFragmentComponent().inject(this);
 
-        viewModel.getRepositories(1)
-                .subscribe(new Observer<List<Repository>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        binding.emptyMessage.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onNext(List<Repository> repositories) {
-                        Log.e("LISTSIZE",repositories.size()+"");
-                        if (repositories.size() == 0)
-                            binding.emptyMessage.setVisibility(View.VISIBLE);
-                        adapter=new ListRepositoryAdapter(getActivity(), repositories);
-                        binding.recycler.setAdapter(adapter);
-                    }
-                });
-
+        //check connectivity
+        if(viewModel.isConnected()) {
+            intialLoad();
+        }else
+            ShowNetworkError();
 
         linearLayoutManager = new LinearLayoutManager(getContext());
         binding.recycler.setHasFixedSize(true);
@@ -75,7 +60,12 @@ public class RepositoryFragment extends Fragment{
         binding.recycler.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                loadNextPage(page);
+                if(viewModel.isConnected())
+                    loadNextPage(page);
+                else {
+                   ShowNetworkError();
+                }
+
             }
         });
     }
@@ -117,6 +107,42 @@ public class RepositoryFragment extends Fragment{
                         adapter.notifyDataSetChanged();
                     }
                 });
+
+    }
+    public void intialLoad(){
+        viewModel.getRepositories(1)
+                .subscribe(new Observer<List<Repository>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        binding.emptyMessage.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onNext(List<Repository> repositories) {
+                        if (repositories.size() == 0)
+                            binding.emptyMessage.setVisibility(View.VISIBLE);
+                        adapter=new ListRepositoryAdapter(getActivity(), repositories);
+                        binding.recycler.setAdapter(adapter);
+                    }
+                });
+    }
+
+    public void ShowNetworkError(){
+        Snackbar bar = Snackbar.make(getView(), R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+                .setAction("Reload", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(viewModel.isConnected())
+                            intialLoad();
+                        else
+                            ShowNetworkError();
+                    }
+                });
+
+        bar.show();
 
     }
 }

@@ -1,6 +1,8 @@
 package com.zakaria.github.utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,5 +29,14 @@ public class Utils {
         Date last30Day = cal.getTime();
 
         return dateFormat.format(last30Day);
+    }
+    public boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
     }
 }

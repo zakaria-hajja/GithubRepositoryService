@@ -10,6 +10,9 @@ import com.zakaria.github.dagger.component.ActivityComponent;
 import com.zakaria.github.dagger.component.Appcomponent;
 import com.zakaria.github.dagger.module.ActivityModule;
 import com.zakaria.github.ui.fragment.RepositoryFragment;
+import com.zakaria.github.utils.Utils;
+
+import javax.inject.Inject;
 
 public class RepositoryActivity extends AppCompatActivity {
 private ActivityComponent activityComponent;
@@ -29,7 +32,7 @@ private ActivityComponent activityComponent;
             final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fragment, RepositoryFragment.newInstance());
             ft.commit();
-
         }
+
     }
 }

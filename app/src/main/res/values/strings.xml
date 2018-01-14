@@ -2,5 +2,7 @@
     <string name="app_name">GithubRepositoryService</string>
     <string name="app_title">Trending Repos</string>
     <string name="empty_list_title">Empty list </string>
+    <string name="network_error">You have no internet connexion, check your provider and reload </string>
+
 
 </resources>

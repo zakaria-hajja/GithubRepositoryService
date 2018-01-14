@@ -34,7 +34,6 @@ public class RepositoryWebService implements RepositoryService {
 
         String q = "created:>";
         q+=utils.getLast30Day();
-        Log.e("DATE",q);
 
 
         return service.getRepositories(q,page)
