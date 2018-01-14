@@ -1,7 +1,9 @@
-package com.github.zakaria.githubrepositoryservice;
+package com.zakaria.github.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.zakaria.github.R;
 
 public class RepositoryActivity extends AppCompatActivity {
 

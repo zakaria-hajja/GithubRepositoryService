@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.github.zakaria.githubrepositoryservice"
+        applicationId "com.zakaria.github"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
