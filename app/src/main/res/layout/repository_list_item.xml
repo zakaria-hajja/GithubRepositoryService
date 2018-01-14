@@ -40,7 +40,7 @@
                 android:id="@+id/iv_owner_image"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_photo_size_select_actual_black_24px"
+                app:imageUrl="@{repository.owner.image}"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentBottom="true"
                 />
@@ -75,7 +75,6 @@
                 android:layout_height="18dp"
                 app:srcCompat="@drawable/ic_star_black_24px"
                 android:gravity="center"
-                android:layout_alignTop="@+id/ima"
                 android:layout_alignBottom="@id/tv_repo_stars"
                 android:layout_toLeftOf="@id/tv_repo_stars"
                 />

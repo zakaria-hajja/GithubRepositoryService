@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class Owner implements Serializable{
-    
+
     private String name;
     private String image;
 
