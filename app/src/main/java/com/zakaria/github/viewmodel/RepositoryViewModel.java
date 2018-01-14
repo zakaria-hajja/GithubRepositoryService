@@ -8,7 +8,12 @@ import android.content.Context;
 
 public class RepositoryViewModel {
     Context context;
+
     public RepositoryViewModel(Context context) {
         this.context = context;
+    }
+
+    String getText(){
+        return  "Zakaria";
     }
 }
