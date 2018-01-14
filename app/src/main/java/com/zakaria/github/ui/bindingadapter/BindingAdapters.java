@@ -1,6 +1,8 @@
 package com.zakaria.github.ui.bindingadapter;
 
 import android.databinding.BindingAdapter;
+import android.icu.text.DecimalFormat;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -20,7 +22,21 @@ public class BindingAdapters {
                 .placeholder(R.drawable.ic_photo_size_select_actual_black_24px)
                 .error(R.drawable.ic_photo_size_select_actual_black_24px)
                 .into(imageView);
-        Log.e("URL",imageUrl);
-
+    }
+    @BindingAdapter("textStars")
+    public static void setTextStars(AppCompatTextView textView, Integer nbStars) {
+        String numberText =nbStars.toString();
+        Double d = nbStars/1000.0;
+        if(d >=1){
+            numberText = round(d,1)+"K";
+        }
+        textView.setText(numberText);
+    }
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 }

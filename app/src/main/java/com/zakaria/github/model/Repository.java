@@ -16,7 +16,7 @@ public class Repository implements Serializable {
     @SerializedName("owner")
     private Owner owner;
     @SerializedName("stargazers_count")
-    private int nbStars;
+    private Integer nbStars;
 
 
     public Repository() {
@@ -53,11 +53,11 @@ public class Repository implements Serializable {
         this.owner = owner;
     }
 
-    public int getNbStars() {
+    public Integer getNbStars() {
         return nbStars;
     }
 
-    public void setNbStars(int nbStars) {
+    public void setNbStars(Integer nbStars) {
         this.nbStars = nbStars;
     }
 }

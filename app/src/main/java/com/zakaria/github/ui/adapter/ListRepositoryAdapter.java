@@ -25,6 +25,10 @@ public class ListRepositoryAdapter extends RecyclerView.Adapter<ListRepositoryAd
         this.repositories = repositories;
     }
 
+    public List<Repository> getRepositories() {
+        return repositories;
+    }
+
     public class ListRepositoryViewHolder extends RecyclerView.ViewHolder{
         private final RepositoryListItemBinding binding;
 
